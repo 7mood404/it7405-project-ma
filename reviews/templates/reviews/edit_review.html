@@ -1,0 +1,28 @@
+{% extends 'frontend/base.html' %}
+
+{% block content %}
+<h2>Edit Review</h2>
+
+<form method="post">
+  {% csrf_token %}
+
+  <label>Rating:</label><br>
+  {% for i in "12345" %}
+    <input type="radio" name="rating" value="{{ forloop.counter }}"
+      {% if review.rating == forloop.counter %}checked{% endif %}>
+    ⭐
+  {% endfor %}
+
+  <br><br>
+
+  <label>Comment:</label><br>
+  <textarea name="comment" rows="4" cols="40">{{ review.comment }}</textarea>
+
+  <br><br>
+
+  <button type="submit">Update Review</button>
+</form>
+
+<br>
+<a href="{% url 'reviews' %}">Back to Reviews</a>
+{% endblock %}

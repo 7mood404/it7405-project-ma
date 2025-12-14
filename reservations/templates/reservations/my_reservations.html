@@ -1,0 +1,22 @@
+{% extends 'frontend/base.html' %}
+{% block content %}
+
+<h2>My Reservations</h2>
+
+<ul>
+  {% for r in reservations %}
+    <li>
+      {{ r.date }} at {{ r.time }} |
+      People: {{ r.people }} |
+      Status: <strong>{{ r.status }}</strong>
+
+      {% if r.status == "Pending" %}
+        | <a href="{% url 'cancel_reservation' r.id %}">Cancel</a>
+      {% endif %}
+    </li>
+  {% empty %}
+    <li>No reservations yet.</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

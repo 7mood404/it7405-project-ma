@@ -1,0 +1,21 @@
+{% extends 'frontend/base.html' %}
+{% block content %}
+
+<h2>Book a Table</h2>
+
+<form method="POST">
+  {% csrf_token %}
+
+  <label>Date:</label>
+  <input type="date" name="date" required><br><br>
+
+  <label>Time:</label>
+  <input type="time" name="time" required><br><br>
+
+  <label>Number of people:</label>
+  <input type="number" name="people" min="1" required><br><br>
+
+  <button type="submit">Reserve</button>
+</form>
+
+{% endblock %}
