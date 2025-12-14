@@ -1,0 +1,19 @@
+{% extends 'frontend/base.html' %}
+
+{% block content %}
+<h2>My Orders</h2>
+
+<ul>
+  {% for order in orders %}
+    <li>
+      <strong>{{ order.item.name }}</strong> |
+      {{ order.order_type }} |
+      Drink: {{ order.drink|default:"None" }} |
+      Qty: {{ order.quantity }} |
+      Status: {{ order.status }}
+    </li>
+  {% empty %}
+    <li>You have no orders yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

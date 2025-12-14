@@ -1,0 +1,33 @@
+<h2>{{ item.name }}</h2>
+<p>{{ item.description }}</p>
+<p>Price: ${{ item.price }}</p>
+
+<form method="POST">
+  {% csrf_token %}
+
+  {% if item.category == "Burger" %}
+    <label>
+      <input type="radio" name="type" value="sandwich" checked>
+      Sandwich only
+    </label><br>
+
+    <label>
+      <input type="radio" name="type" value="meal">
+      Meal (+ fries & drink)
+    </label><br><br>
+
+    <label>Choose a drink:</label>
+    <select name="drink">
+      <option value="Coke">Coke</option>
+      <option value="Pepsi">Pepsi</option>
+      <option value="Water">Water</option>
+    </select>
+  {% endif %}
+
+    <br><br>
+  <label>Quantity:</label>
+  <input type="number" name="quantity" value="1" min="1" required>
+
+  <br><br>
+  <button type="submit">Add to Order</button>
+</form>

@@ -1,0 +1,33 @@
+{% extends 'frontend/base.html' %}
+{% block content %}
+<h2>My Cart</h2>
+
+{% if cart.items.all %}
+  <ul>
+    {% for oi in cart.items.all %}
+      <li>
+        <strong>{{ oi.item.name }}</strong> |
+        {{ oi.order_type }} |
+        Drink: {{ oi.drink|default:"None" }}
+
+        <form method="POST" action="{% url 'update_item' oi.id %}" style="display:inline;">
+          {% csrf_token %}
+          Qty:
+          <input type="number" name="quantity" value="{{ oi.quantity }}" min="1" required>
+          <button type="submit">Update</button>
+        </form>
+
+        <a href="{% url 'delete_item' oi.id %}">Delete</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <form method="POST" action="{% url 'place_order' %}">
+    {% csrf_token %}
+    <button type="submit">Place Order</button>
+  </form>
+{% else %}
+  <p>Your cart is empty.</p>
+{% endif %}
+
+{% endblock %}

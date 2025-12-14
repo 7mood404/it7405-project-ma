@@ -1,0 +1,57 @@
+{% extends "frontend/base.html" %}
+
+{% block content %}
+<h1 class="mb-4">Menu</h1>
+
+<form method="get" class="row g-2 mb-4">
+  <div class="col-md-4">
+    <input type="text" name="q" class="form-control" placeholder="Search food..."
+           value="{{ request.GET.q }}">
+  </div>
+
+  <div class="col-md-3">
+    <select name="category" class="form-select">
+      <option value="">All</option>
+      <option value="Burger">Burger</option>
+      <option value="Meal">Meal</option>
+      <option value="Drink">Drink</option>
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <button class="btn btn-primary w-100">Search</button>
+  </div>
+</form>
+
+<div class="row">
+  {% for item in items %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">
+            <a href="{% url 'menu_detail' item.id %}" class="text-decoration-none">
+              {{ item.name }}
+            </a>
+          </h5>
+
+          <p class="card-text text-muted">
+            Category: {{ item.category }}
+          </p>
+
+          <p class="fw-bold">
+            ${{ item.price }}
+          </p>
+        </div>
+
+        <div class="card-footer bg-transparent border-top-0">
+          <a href="{% url 'menu_detail' item.id %}" class="btn btn-outline-primary btn-sm">
+            View Options
+          </a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No menu items found.</p>
+  {% endfor %}
+</div>
+{% endblock %}
